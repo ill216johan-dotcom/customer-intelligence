@@ -1,0 +1,26 @@
+# Celery
+celery[redis]==5.3.6
+redis==5.0.1
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+pgvector==0.2.4
+
+# Whisper & Audio
+openai-whisper==20231117
+torch>=2.0.0
+torchaudio>=2.0.0
+ffmpeg-python==0.2.0
+
+# Speaker Diarization
+pyannote.audio==3.1.1
+
+# HTTP Client
+httpx==0.26.0
+
+# Utils
+python-dotenv==1.0.0
+tenacity==8.2.3
+pydantic==2.5.3
+pydantic-settings==2.1.0
