@@ -8,7 +8,7 @@ psycopg2-binary==2.9.9
 pgvector==0.2.4
 
 # Whisper & Audio
-openai-whisper==20231117
+# openai-whisper==20231117  <-- Moved to Dockerfile to fix pkg_resources
 torch>=2.0.0
 torchaudio>=2.0.0
 ffmpeg-python==0.2.0

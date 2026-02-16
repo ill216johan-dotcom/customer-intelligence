@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   # ==========================================
@@ -16,7 +16,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/app/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Changed to 5433 to avoid conflict with local Postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ci_user}"]
       interval: 10s
@@ -30,8 +30,8 @@ services:
     image: redis:7-alpine
     container_name: ci-redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    # ports:          <-- Commented out to avoid conflict
+    #   - "6379:6379"
     volumes:
       - redis_data:/data
 

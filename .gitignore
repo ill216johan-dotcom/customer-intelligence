@@ -1,0 +1,30 @@
+# Backend
+__pycache__/
+*.pyc
+.env
+venv/
+.pytest_cache/
+
+# Frontend
+frontend/.next/
+frontend/node_modules/
+frontend/.turbo/
+frontend/build/
+node_modules/
+
+# Docker
+postgres_data/
+redis_data/
+audio_data/
+whisper_cache/
+n8n_data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

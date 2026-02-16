@@ -13,11 +13,14 @@ RUN apt-get update && apt-get install -y \
 # Install Python dependencies
 COPY requirements.txt .
 
-# Install PyTorch CPU version (smaller image, use CUDA version for GPU)
-RUN pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+# Install PyTorch CPU version and setuptools (required for whisper)
+RUN pip install --no-cache-dir setuptools torch torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # Install other requirements
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install openai-whisper with --no-build-isolation to fix pkg_resources issue
+RUN pip install --no-cache-dir --no-build-isolation openai-whisper==20231117
 
 # Copy application code
 COPY . .
