@@ -81,9 +81,10 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-change_me}
       - REDIS_URL=redis://redis:6379/0
       - GLM_API_KEY=${GLM_API_KEY}
-      - WHISPER_MODEL=${WHISPER_MODEL:-large-v3}
+      - WHISPER_MODEL=${WHISPER_MODEL:-small}  # Changed from large-v3 to small for better memory usage
       - WHISPER_DEVICE=${WHISPER_DEVICE:-cpu}
     volumes:
+      - ./worker:/app
       - audio_data:/app/audio
       - whisper_cache:/root/.cache
     depends_on:
@@ -100,7 +101,7 @@ services:
     container_name: ci-frontend
     restart: unless-stopped
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
     ports:
       - "3000:3000"
     depends_on:

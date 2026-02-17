@@ -55,9 +55,9 @@ class AlertSeverity(str, enum.Enum):
 
 
 class UserRole(str, enum.Enum):
-    ADMIN = "admin"
-    MANAGER = "manager"
-    VIEWER = "viewer"
+    ADMIN = "ADMIN"
+    MANAGER = "MANAGER"
+    VIEWER = "VIEWER"
 
 
 # ==========================================
@@ -156,6 +156,7 @@ class Call(Base):
     # Status
     processing_status: Mapped[str] = mapped_column(String(50), default="pending")
     processing_error: Mapped[Optional[str]] = mapped_column(Text)
+    processing_progress: Mapped[Optional[int]] = mapped_column(Integer)
     
     # Metadata
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default="now()")

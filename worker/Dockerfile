@@ -28,5 +28,9 @@ COPY . .
 # Create audio directory
 RUN mkdir -p /app/audio
 
+# Environment variables (can be overridden by docker-compose.yml)
+ENV WHISPER_MODEL=large-v3
+ENV WHISPER_DEVICE=cpu
+
 # Run Celery worker
 CMD ["celery", "-A", "tasks.celery_app", "worker", "--loglevel=info", "--concurrency=2"]

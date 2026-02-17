@@ -1,5 +1,5 @@
 """
-Celery application configuration.
+Celery application configuration for backend and workers.
 """
 
 import os
@@ -8,9 +8,9 @@ from celery import Celery
 # Get Redis URL from environment
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 
-# Create Celery app
+# Create Celery app (same configuration as worker)
 celery_app = Celery(
-    "worker",
+    "tasks",
     broker=REDIS_URL,
     backend=REDIS_URL,
     include=["tasks.transcribe"],

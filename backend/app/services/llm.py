@@ -19,7 +19,7 @@ class GLMClient:
     def __init__(self):
         self.api_key = settings.glm_api_key
         self.base_url = settings.glm_api_base
-        self.model = "glm-4"  # or "glm-4-flash" for cheaper option
+        self.model = "glm-4.5-air"  # Available models: glm-4.5, glm-4.5-air, glm-4.6, glm-4.7, glm-5
     
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
     async def chat(

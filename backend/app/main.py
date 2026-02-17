@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import customers, calls, messages, notes, alerts, chat, auth
+from app.api import customers, calls, messages, notes, alerts, chat, auth, llm
 from app.db.database import init_db
 from app.config import settings
 
@@ -45,6 +45,7 @@ app.include_router(messages.router, prefix="/api/messages", tags=["Messages"])
 app.include_router(notes.router, prefix="/api/notes", tags=["Notes"])
 app.include_router(alerts.router, prefix="/api/alerts", tags=["Alerts"])
 app.include_router(chat.router, prefix="/api/chat", tags=["RAG Chat"])
+app.include_router(llm.router, prefix="/api/llm", tags=["LLM"])
 
 
 @app.get("/")
