@@ -17,6 +17,7 @@ from app.db.database import get_db
 from app.models.models import Call, CallSource, Customer
 from app.api.auth import get_current_user, User
 from app.config import settings
+from app.celery import celery_app
 
 router = APIRouter()
 
@@ -228,9 +229,13 @@ async def upload_audio(
     await db.refresh(call)
     
     # Queue transcription task (Celery)
-    # background_tasks.add_task(process_transcription, str(call.id), filepath)
+    filepath = os.path.join(settings.audio_dir, filename)
+    celery_app.send_task(
+        "tasks.transcribe.process_audio",
+        args=[str(call.id), filepath],
+        queue="celery",
+    )
     
-    # For now, just mark as pending (worker will pick it up)
     return call
 
 
@@ -242,7 +247,7 @@ async def get_transcription_status(
 ):
     """Get transcription processing status."""
     result = await db.execute(
-        select(Call.processing_status, Call.processing_error)
+        select(Call.processing_status, Call.processing_error, Call.processing_progress)
         .where(Call.id == call_id)
     )
     row = result.one_or_none()
@@ -250,11 +255,12 @@ async def get_transcription_status(
     if not row:
         raise HTTPException(status_code=404, detail="Call not found")
     
-    status, error = row
+    status, error, progress = row
     
     return TranscriptionStatus(
         call_id=call_id,
         status=status,
+        progress=progress,
         error=error,
     )
 
