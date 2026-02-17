@@ -274,7 +274,7 @@ Authorization: Bearer <access_token>
 - `is_read` (bool)
 - `is_resolved` (bool)
 - `severity` (enum: low, medium, high, critical)
-- `type` (enum: high_reserves, potential_leave, payment_overdue, custom)
+- `type` (enum: high_reserves, potential_leave, payment_overdue, churn_risk, sentiment_decline, custom)
 
 ### GET /alerts/stats
 
